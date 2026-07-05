@@ -3,7 +3,7 @@
 _pkgname=llavon-ime-fcitx5
 _srcname=IME
 pkgname=${_pkgname}-git
-pkgver=0.1.0.r53.gcb51bb8
+pkgver=0.1.0.r54.ge38d64c
 pkgrel=1
 pkgdesc='Fcitx5 frontend and local inference service for Llavon IME'
 arch=('x86_64' 'aarch64')
