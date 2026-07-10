@@ -1,14 +1,14 @@
 # Maintainer: llavon-ime contributors
 
 _pkgname=llavon-ime-fcitx5
-_srcname=IME
+_srcname=ime-fcitx5
 _model_file=llavon-ime-llama-250m-Q4_K_M.gguf
 pkgname=${_pkgname}-git
-pkgver=0.1.0.r55.gd5d8c00
+pkgver=0.1.0.r1.gf7e9bd7
 pkgrel=1
 pkgdesc='Fcitx5 frontend and local inference service for Llavon IME'
 arch=('x86_64' 'aarch64')
-url='https://github.com/llavon-ime/IME'
+url='https://github.com/llavon-ime/ime-fcitx5'
 license=('BSD-2-Clause')
 depends=('asio' 'fcitx5' 'llama.cpp' 'nlohmann-json')
 makedepends=('cmake' 'git' 'ninja' 'pkgconf')
@@ -16,7 +16,7 @@ optdepends=('fcitx5-configtool: graphical configuration for fcitx5')
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
 source=(
-    "${_srcname}::git+https://github.com/llavon-ime/IME.git#branch=main"
+    "${_srcname}::git+https://github.com/llavon-ime/ime-fcitx5.git#branch=main"
     "${_model_file}::https://huggingface.co/tony65535/llavon-ime-llama-250m-GGUF/resolve/main/${_model_file}"
 )
 sha256sums=('SKIP' 'SKIP')
