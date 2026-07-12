@@ -4,7 +4,7 @@ _pkgname=llavon-ime-fcitx5
 _srcname=ime-fcitx5
 _model_file=llavon-ime-llama-250m-Q4_K_M.gguf
 pkgname=${_pkgname}-git
-pkgver=0.1.0.r5.g09eca2a
+pkgver=0.1.0.r6.g35690dc
 pkgrel=1
 pkgdesc='Fcitx5 frontend and local inference service for Llavon IME'
 arch=('x86_64' 'aarch64')
@@ -37,6 +37,15 @@ pkgver() {
 }
 
 build() {
+    git -C "${_srcname}" submodule update --init --recursive
+
+    cmake -S "${_srcname}/ime-service" -B service-build -G Ninja \
+        -DCMAKE_BUILD_TYPE=None \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DIMESVC_BUILD_TESTS=ON
+    cmake --build service-build
+    ctest --test-dir service-build --output-on-failure
+
     cmake -S "${_srcname}/fcitx5" -B build -G Ninja \
         -DCMAKE_BUILD_TYPE=None \
         -DCMAKE_INSTALL_PREFIX=/usr \
@@ -46,6 +55,7 @@ build() {
 }
 
 package() {
+    DESTDIR="${pkgdir}" cmake --install service-build
     DESTDIR="${pkgdir}" cmake --install build
     install -Dm644 "${srcdir}/${_model_file}" \
         "${pkgdir}/usr/share/llavon-ime/models/${_model_file}"
